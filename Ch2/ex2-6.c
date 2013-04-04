@@ -1,12 +1,17 @@
-/* Exercise 2-6: Write a function setbits(x,p,n,y) that returns x with the n bits that begin at 
-position p set to the rightmost n bits of y, leaving the other bits unchanged. */
+/* 
+Exercise 2-6
+Write a function setbits(x,p,n,y) that returns x with the n bits that begin at 
+position p set to the rightmost n bits of y, leaving the other bits unchanged. 
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 
 unsigned setbits(unsigned x, int p, int n, unsigned y);
 void test_setbits(unsigned x, int p, int n, unsigned y, unsigned expected);
 
-main()
+int main()
 {
 	test_setbits(070, 2, 3, 007, 077);
 	test_setbits(007, 5, 3, 007, 077);
@@ -14,6 +19,8 @@ main()
 	test_setbits(077, 3, 2, 0, 063);
 	test_setbits(0, 31, 32, ~0, ~0);
 	test_setbits(0, 31, 32, 0, 0);
+	
+	return 0;
 }
 
 /* setbits: Returns x with the n bits that begin at position p set to the rightmost n bits of y */

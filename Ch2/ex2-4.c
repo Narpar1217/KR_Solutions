@@ -1,5 +1,10 @@
-/* Exercise 2-4: Write an alternative version of squeeze(s1,s2) that deletes each 
-character in s1 that matches any character in the string s2.  */
+/* 
+Exercise 2-4
+Write an alternative version of squeeze(s1,s2) that deletes each 
+character in s1 that matches any character in the string s2.  
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 #include <string.h>
@@ -8,14 +13,14 @@ void squeeze_alt(char s[], char s2[]);
 void squeeze(char s[], int c);
 void test_squeeze(char s[], char s2[]);
 
-main()
+int main()
 {
 	printf("\nBegin real test:\n---------------\n");
 	test_squeeze("", "ab c");
-	test_squeeze("Hi Bart I am weaving on a loom.", "");
+	test_squeeze("Hi Bart I'm weaving on a loom.", "");
 	test_squeeze("Hi Bart.", "hia");
 	test_squeeze("-Hi I am Weave.-", "-");
-	test_squeeze("Hi Bart I am weaving on a loom.", "Hi BartImwevngol.");
+	test_squeeze("Hi Bart I'm weaving on a loom.", "Hi BartImwevngol.'");
 	
 	//Weird compiler issue: 
 	//  If passing the (exact) same s multiple times, the string is not passed as expected. 
@@ -25,6 +30,8 @@ main()
 	test_squeeze("test sentence please ignore", "ts");
 	test_squeeze("test sentence please ignore", "i n");
 	test_squeeze("test sentence please ignore", "test");
+	
+	return 0;
 }
 
 

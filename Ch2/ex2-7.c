@@ -1,18 +1,26 @@
-/* Exercise 2-7. Write a function invert(x,p,n) that returns x with the n bits that begin at 
-position p inverted (i.e., 1 changed into 0 and vice versa), leaving the others unchanged. */
+/* 
+Exercise 2-7
+Write a function invert(x,p,n) that returns x with the n bits 
+that begin at position p inverted (i.e. 1 changed into 0 and vice versa), 
+leaving the others unchanged. 
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 
 unsigned invert(unsigned x, int p, int n);
 void test_invert(unsigned x, int p, int n);
 
-main()
+int main()
 {
 	test_invert(0, 5, 6);
 	test_invert(077, 5, 6);
 	test_invert(052, 5, 6);
 	test_invert(052, 2, 3);
 	test_invert(~0, 31, 32);
+	
+	return 0;
 }
 
 /* invert: returns x with the n bits that begin at position p inverted.  

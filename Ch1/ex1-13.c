@@ -1,4 +1,9 @@
-/* Exercise 1-13: Print histogram of lengths of words in input. */
+/* 
+Exercise 1-13
+Print histogram of lengths of words in input. 
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -11,9 +16,9 @@
 void print_histogram(int data[], int length, int scale, int histChar);
 int scale_ints(int data[], int length, int max, int scaleStep, int highest);
 
-main()
+int main()
 {
-	int c, i, j, wordLen, highestFreq, scale;
+	int c, i, wordLen, highestFreq, scale;
 	int lenArray[MAXLEN + 1];
 
 	highestFreq = 0;

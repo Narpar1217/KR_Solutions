@@ -1,5 +1,10 @@
-/* Exercise 2-9: In a two's complement number system, x &= (x-1) deletes the rightmost 1-bit 
-in x. Explain why. Use this observation to write a faster version of bitcount. */
+/* 
+Exercise 2-9
+In a two's complement number system, x &= (x-1) deletes the rightmost 1-bit in x. 
+Use this observation to write a faster version of bitcount. 
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 
@@ -7,7 +12,7 @@ int bitcount_old(unsigned x);
 int bitcount(int x);
 void test_bitcount(int x);
 
-main()
+int main()
 {
 	test_bitcount(0);
 	test_bitcount(1);
@@ -20,6 +25,7 @@ main()
 	test_bitcount(07);
 	test_bitcount(255);
 	
+	return 0;
 }
 
 

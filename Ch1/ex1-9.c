@@ -1,9 +1,14 @@
-/* Exercise 1-9: Copy input to output, replacing multiple spaces with one space. */
+/* 
+Exercise 1-9
+Copy input to output, replacing multiple spaces with one space. 
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 #include <stdbool.h>
 
-main()
+int main()
 {
 	int c;
 	bool space;
@@ -22,4 +27,6 @@ main()
 			putchar(c);
 		}
 	}
+	
+	return 0;
 }

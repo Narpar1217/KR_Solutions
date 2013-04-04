@@ -1,6 +1,10 @@
-/* Exercise 2-5: Write the function any(s1,s2), which returns the first location in a string s1 
+/* 
+Exercise 2-5
+Write the function any(s1,s2), which returns the first location in a string s1 
 where any character from the string s2 occurs, or -1 if  s1 contains no characters from  s2. 
 (The standard library function strpbrk does the same job but returns a pointer to the location.) 
+
+Author: Adam Beagle
 */
 
 #include <stdio.h>
@@ -10,9 +14,9 @@ where any character from the string s2 occurs, or -1 if  s1 contains no characte
 int any(char s1[], char s2[]);
 void test_any(char s1[], char s2[]);
 
-main()
+int main()
 {
-	char test[] = "Hi Bart, I am weaving on a loom.";
+	char test[] = "Hi Bart, I'm weaving on a loom.";
 	
 	//test cases
 	test_any(test, "");
@@ -22,6 +26,8 @@ main()
 	test_any(test, "Brt");
 	test_any(test, "xyz");
 	test_any(test, "xy z");
+	
+	return 0;
 }
 
 /* any: Returns index of first occurence of any character from s2 in s1,

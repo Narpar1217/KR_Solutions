@@ -1,4 +1,9 @@
-/* Exercise 1-14: Print histogram of frequencies of characters in input. */
+/* 
+Exercise 1-14
+Print histogram of frequencies of characters in input. 
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -13,9 +18,9 @@
 void print_histogram(int data[], int length, int scale, int histChar, int charOffset);
 int scale_ints(int data[], int length, int max, int scaleStep, int highest);
 
-main()
+int main()
 {
-	int c, i, j, highestFreq, scale;
+	int c, i, highestFreq, scale;
 	int charCounts[ARRSIZE];
 	
 	highestFreq = 0;

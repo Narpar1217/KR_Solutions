@@ -1,8 +1,13 @@
-/* Exercise 1-8: Count blanks, tabs, and newlines in input. */
+/* 
+Exercise 1-8
+Count blanks, tabs, and newlines in input. 
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 
-main()
+int main()
 {
 	int c, blanks, tabs, newlines;
 
@@ -20,4 +25,6 @@ main()
 			newlines++;
 
 	printf("\nBlanks:\t\t%d\nTabs:\t\t%d\nNewlines:\t%d\n", blanks, tabs, newlines);
+	
+	return 0;
 }

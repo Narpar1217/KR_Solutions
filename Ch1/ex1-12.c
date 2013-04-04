@@ -1,8 +1,13 @@
-/* Exercise 1-12: Prints input, one word per line. */
+/* 
+Exercise 1-12
+Prints input, one word per line. 
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 
-main()
+int main()
 {
 	int c;
 	
@@ -17,4 +22,6 @@ main()
 			putchar(c);
 		}
 	}
+	
+	return 0;
 }

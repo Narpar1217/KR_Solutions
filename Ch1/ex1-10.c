@@ -1,10 +1,15 @@
-/* Exercise 1-10: Copy input to output, replacing tabs, backspaces, and backslashes 
-with string escape sequence */
+/* 
+Exercise 1-10
+Copy input to output, replacing tabs, backspaces, 
+and backslashes with string escape sequence.
+
+Author: Adam Beagle
+*/
 
 #include <stdio.h>
 #include <stdbool.h>
 
-main()
+int main()
 {
 	int c;
 	
@@ -27,4 +32,5 @@ main()
 			putchar(c);
 	}
 	
+	return 0;
 }
