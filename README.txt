@@ -1,7 +1,9 @@
 My solutions to select exercises in 
 "The C Programming Language 2nd Edition" by Kernighan and Ritchie (AKA "the K&R").
 
-I will add more solutions as I review them and fully test them for correctness and completeness.
+All are verified to compile in gcc with -Wall without any warnings or errors.
+
+I will add more solutions as I review and test them.
 
 
 All code herein
