@@ -10,15 +10,15 @@
 #define MAXROW		40
 #define SCALESTEP	5
 
+void print_histogram(int data[], int length, int scale, int histChar, int charOffset);
+int scale_ints(int data[], int length, int max, int scaleStep, int highest);
+
 main()
 {
 	int c, i, j, highestFreq, scale;
 	int charCounts[ARRSIZE];
-	bool flag;
 	
 	highestFreq = 0;
-	scale = 1;
-	flag = false;
 
 	//Initialize all elements of charCounts to 0
 	for (i = 0; i < ARRSIZE; ++i)
@@ -37,32 +37,63 @@ main()
 	}
 	
 	//Scale frequencies so none exceed MAXROW
-	while (highestFreq > MAXROW) {
-		scale = (scale == 1) ? scale * SCALESTEP : scale + SCALESTEP;
-		highestFreq /= SCALESTEP;
-	}
+	scale = scale_ints(charCounts, ARRSIZE, MAXROW, SCALESTEP, highestFreq);
 	
-	for (i = 0; i < ARRSIZE; ++i) {
-		flag = charCounts[i] > 0;
-		charCounts[i] /= scale;
-		
-		//Differentiate elements with frequency less than scale, 
-		//  so they're still represented in histogram.
-		if (flag && charCounts[i] == 0)
-			charCounts[i] = -1;
-	}
-
 	//Print histogram
+	print_histogram(charCounts, ARRSIZE, scale, HISTCHAR, STARTCHAR);
+	
+	return 0;
+}
+
+
+/* print_histogram: Writes a histogram of frequencies contained in data.
+	data is length of data array.
+	scale is the amount each character on the histogram represents.
+	histChar is the character to use to print the histogram.
+	Assumes data is already scaled. */
+void print_histogram(int data[], int length, int scale, int histChar, int charOffset)
+{
+	int i, j;
+	
 	printf("\nSCALE: | = %d\n\n", scale);
 	
-	for (i = 0; i < ARRSIZE; ++i) {
-		if (charCounts[i] != 0) {
-			printf("%c: ", i + STARTCHAR);
+	for (i = 0; i < length; ++i) {
+		if (data[i] != 0) {
+			printf("%c: ", i + charOffset);
 
-			for (j = 0; j < charCounts[i]; ++j)
-				printf("%c", HISTCHAR);
+			for (j = 0; j < data[i]; ++j)
+				printf("%c", histChar);
 				
 			printf("\n");
 		}
 	}
+	
+	return;
+}
+
+
+/* scale_ints: Scales an array of positive integers so that none is greater than passed maximum value.
+	Returns value by which data was scaled. 
+	Data with values greater than 0 but less than step size are given value of -1.*/
+int scale_ints(int data[], int length, int max, int scaleStep, int highest)
+{
+	int i;
+	int scale = 1;
+	bool flag;
+	
+	//Find scale by dividing highest by scaleStep until it is less than max
+	while (highest > max) {
+		scale = (scale == 1) ? scale * scaleStep : scale + scaleStep;
+		highest /= scaleStep;
+	}
+	
+	for (i = 0; i < length; ++i) {
+		flag = data[i] > 0;
+		data[i] /= scale;
+		
+		if (flag && data[i] == 0)
+			data[i] = -1;
+	}
+	
+	return scale;
 }
