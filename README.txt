@@ -3,7 +3,7 @@ My solutions to select exercises in
 
 All are verified to compile in gcc 3.4.4 (in Cygwin) with -Wall without any warnings or errors.
 
-I will add more solutions as I review and test them.
+More solutions will be added as they are reviewed and tested, and as time permits.
 
 
 All code herein
