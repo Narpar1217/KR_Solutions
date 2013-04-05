@@ -1,7 +1,6 @@
 /* 
-Exercise 1-16
-Revise the main routine of the longest-line program so it will correctly print 
-the length of arbitrarily long input lines, and as much as possible of the text. 
+Exercise 1-17 
+Write a program to print all input lines that are longer than 80 characters. 
 
 Usage: Redirect file to stdin. Example: ./this_program < file.ext
 
@@ -10,30 +9,23 @@ Author: Adam Beagle
 
 #include <stdio.h>
 
-#define MAXLINE 100 	/* Maximum input line length.*/
+#define MAXLINE 1000 	/* maximum input line length */
+#define MINPRINTLEN 80  /* minimum length required to print line */
 
-void copy(char to[], char from[]);
-int _getline(char s[], int lim); // NOTE: Underscore is necessary! Without it, name conflicts with stdio.h function.
+int _getline(char s[], int lim);	// NOTE: underscore is necessary! Otherwise name conflicts with stdio function.
 
 
 int main()
 {
-	int len;				// Current line length
-	int max;				// Maximum length seen so far
-	char line[MAXLINE];		// Current input line
-	char longest[MAXLINE];	// Longest line saved here
+	int len;			// current line length
+	char line[MAXLINE];	// line
 
-	max = 0;
 	while ((len = _getline(line, MAXLINE)) > 0) {
-		if (len > max) {
-			max = len;
-			copy(longest, line);
+		if (len > MINPRINTLEN) {
+			printf("%s\n", line);
+			
 		}
 	}
-
-	if (max > 0) //If at least one line was found
-		printf("\nLongest line:\n%s\n\nLength: %d\n\n", longest, max);
-	
 	
 	return 0;
 }
@@ -67,15 +59,4 @@ int _getline(char s[], int lim)
 		++i;
 	
 	return i;
-}
-
-/* copy: Copies 'from' into 'to.' Assumes to is of sufficient length. */
-void copy(char to[], char from[])
-{
-	int i;
-
-	i = 0;
-	while ((to[i] = from[i]) != '\0')
-		++i;
-
 }

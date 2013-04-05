@@ -1,7 +1,7 @@
-/* 
-Exercise 1-16
-Revise the main routine of the longest-line program so it will correctly print 
-the length of arbitrarily long input lines, and as much as possible of the text. 
+/*
+Exercise 1-19
+Write a function reverse(s) that reverses the character string s. 
+Use it to write a program that reverses its input a line at a time. 
 
 Usage: Redirect file to stdin. Example: ./this_program < file.ext
 
@@ -10,30 +10,21 @@ Author: Adam Beagle
 
 #include <stdio.h>
 
-#define MAXLINE 100 	/* Maximum input line length.*/
+#define MAXLINE 1000	//Maximum line length
 
-void copy(char to[], char from[]);
-int _getline(char s[], int lim); // NOTE: Underscore is necessary! Without it, name conflicts with stdio.h function.
+void reverse(char s[], int len);
+int _getline(char s[], int lim);
 
 
 int main()
 {
-	int len;				// Current line length
-	int max;				// Maximum length seen so far
-	char line[MAXLINE];		// Current input line
-	char longest[MAXLINE];	// Longest line saved here
-
-	max = 0;
-	while ((len = _getline(line, MAXLINE)) > 0) {
-		if (len > max) {
-			max = len;
-			copy(longest, line);
-		}
-	}
-
-	if (max > 0) //If at least one line was found
-		printf("\nLongest line:\n%s\n\nLength: %d\n\n", longest, max);
+	char line[MAXLINE];
+	int len;
 	
+	while ((len = _getline(line, MAXLINE)) > 0) {
+		reverse(line, len);
+		printf("%s\n", line);
+	}
 	
 	return 0;
 }
@@ -69,13 +60,20 @@ int _getline(char s[], int lim)
 	return i;
 }
 
-/* copy: Copies 'from' into 'to.' Assumes to is of sufficient length. */
-void copy(char to[], char from[])
+/* reverse: Reverses string 's' in place. */
+void reverse(char s[], int len)
 {
 	int i;
+	char temp;
+	
+	if (s[len - 1] == '\n')
+		len -= 1;
 
-	i = 0;
-	while ((to[i] = from[i]) != '\0')
-		++i;
-
+	for (i = 0; i < (len/2); i++) {
+		temp = s[i];
+		s[i] = s[len - 1 - i];
+		s[len - 1 - i] = temp;
+	}
+	
+	return;
 }
