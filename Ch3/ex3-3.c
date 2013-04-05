@@ -105,7 +105,7 @@ bool expand(char s1[], char s2[], int maxLen)
 		
 		// case: literal character
 		//Without this test, a line ending with a range will have its last character printed twice
-		if (!partOfRange)	{
+		if (!partOfRange) {
 		
 			//Add character to s2, or break and return if out of space
 			if (j < maxLen - 1)
