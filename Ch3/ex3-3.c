@@ -13,8 +13,8 @@ Arrange that a leading or trailing - is taken literally.
 
 #define UPCASE_ST 	65
 #define UPCASE_END	90
-#define LOCASE_ST   97
-#define LOCASE_END  122
+#define LOCASE_ST   	97
+#define LOCASE_END  	122
 #define DIGIT_ST	48
 #define DIGIT_END	57
 #define MAXLINE 	1000
