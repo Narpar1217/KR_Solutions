@@ -14,9 +14,9 @@ measure the difference in run-time.
 On my machine, these test values result in a 
 runtime of <2 seconds for each algorithm.
 */
-#define TEST_LIMIT 500000	//Number of values in test array
+#define TEST_LIMIT 500000   //Number of values in test array
 #define TEST_ITERS 10000000 //Number of times the worst-case search 
-							//  is run with each algortithm
+                            //  is run with each algortithm
 
 int binsearch(int x, int v[], int n);
 int binsearch_two_tests(int x, int v[], int n);
