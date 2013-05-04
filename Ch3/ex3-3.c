@@ -1,5 +1,7 @@
 /* 
-Exercise 3-3
+K&R Exercise 3-3
+Author: Adam Beagle
+
 Write a function expand(s1,s2) that expands shorthand notations like a-z in 
 the string s1 into the equivalent complete list abc...xyz in s2. 
 Allow for letters of either case and digits, and be prepared to 
@@ -13,8 +15,8 @@ Arrange that a leading or trailing - is taken literally.
 
 #define UPCASE_ST 	65
 #define UPCASE_END	90
-#define LOCASE_ST   	97
-#define LOCASE_END  	122
+#define LOCASE_ST	97
+#define LOCASE_END	122
 #define DIGIT_ST	48
 #define DIGIT_END	57
 #define MAXLINE 	1000
