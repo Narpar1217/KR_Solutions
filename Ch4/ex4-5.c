@@ -1,12 +1,11 @@
 /*
-K&R Exercise 4-4
+K&R Exercise 4-5
 Author: Adam Beagle
 
-Add the commands to print the top element of the stack without popping, to 
-duplicate it, and to swap the top two elements. Add a command to clear the stack.
+Add access to library functions like  sin,  exp, and  pow.
 */
 
-#include <math.h> 	//for fmod
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>	//for atof
 
@@ -63,6 +62,17 @@ int main()
 					printf("Error: Zero divisor\n");
 				break;
 				
+			//Power function
+			case '^':
+				op2 = pop();
+				push(pow(pop(), op2));
+				break;
+				
+			//Sine function
+			case '~':
+				push(sin(pop()));
+				break;
+				
 			//Clears stack
 			case 'c':
 				clear();
@@ -71,6 +81,11 @@ int main()
 			//Duplicates top element
 			case 'd':
 				duplicate_top();
+				break;
+			
+			//Exponential function
+			case 'e':
+				push(exp(pop()));
 				break;
 				
 			//Print top element of stack without popping
