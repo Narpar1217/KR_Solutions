@@ -1,9 +1,9 @@
 /*
-K&R Exercise 4-3
+K&R Exercise 4-4
 Author: Adam Beagle
 
-Given the basic framework, it's straightforward to extend the calculator. Add 
-the modulus (%) operator and provisions for negative numbers. 
+Add the commands to print the top element of the stack without popping, to 
+duplicate it, and to swap the top two elements. Add a command to clear the stack.
 */
 
 #include <math.h> 	//for fmod
@@ -13,9 +13,13 @@ the modulus (%) operator and provisions for negative numbers.
 #define MAXOP 100	//max size of operand or operator
 #define NUMBER '0'	//signal that a number was found
 
+void clear(void);
+void duplicate_top(void);
 int getop(char[]);
-void push(double);
+void print_top(void);
 double pop(void);
+void push(double);
+void swap(void);
 
 
 /* Reverse Polish calculator */
@@ -59,6 +63,26 @@ int main()
 					printf("Error: Zero divisor\n");
 				break;
 				
+			//Clears stack
+			case 'c':
+				clear();
+				break;
+			
+			//Duplicates top element
+			case 'd':
+				duplicate_top();
+				break;
+				
+			//Print top element of stack without popping
+			case 'p':
+				print_top();
+				break;
+				
+			//Swap top two elements of stack
+			case 's':
+				swap();
+				break;
+				
 			case '\n':
 				printf("\t%.8g\n", pop());
 				break;
@@ -73,15 +97,13 @@ int main()
 }
 
 /*#################################################################*/
-// GETOP
-/*#################################################################*/
+/* getop:
+	Returns next operator, or numeric operand code.
+*/
 int getch(void);
 int isdigit(char c);
 void ungetch(int);
 
-/* getop:
-	Returns next operator, or numeric operand code.
-*/
 int getop(char s[])
 {
 	int i, c;
@@ -120,7 +142,6 @@ int getop(char s[])
 	return NUMBER;
 }
 
-
 /* isdigit:
 	Returns true if c is a digit (1-9), false otherwise.
 */
@@ -129,13 +150,10 @@ int isdigit(char c)
 	return (c >= '0' && c <= '9');
 }
 
-
 /*#################################################################*/
-// PUSH, POP
+// PUSH, POP, COMMANDS
 /*#################################################################*/
 #define MAXVAL 100	//maximum depth of val stack
-
-
 
 int sp = 0; //next free stack position
 double val[MAXVAL]; //value stack
@@ -165,6 +183,62 @@ void push(double f)
 		printf("Error: Stack full, cannot push %g\n", f);
 }
 
+/* clear:
+	Clears the stack.
+*/
+void clear(void)
+{
+	//Nothing more needed; 
+	//Data remains in stack but can only be overwritten, not accessed.
+	sp = 0;
+}
+
+/* duplicate_top:
+	Duplicates top element of stack.
+*/
+void duplicate_top(void)
+{
+	double top;
+	
+	if (sp > 0) {
+		top = pop();
+		push(top);
+		push(top);
+	}
+	else
+		printf("Error in duplicate_top: Stack empty\n");
+}
+
+
+/* print_top:
+	Prints top element of stack without popping it.
+*/
+void print_top(void)
+{
+	if (sp > 0)
+		printf("Top of stack: %g\n", val[sp - 1]);
+	else
+		printf("Stack empty.\n");
+}
+
+
+/* swap:
+	Swaps top 2 elements of stack.
+*/
+void swap(void)
+{
+	double op1; 
+	double op2; 
+	
+	if (sp > 1) {
+		op1 = pop();
+		op2 = pop();
+		push(op1);
+		push(op2);
+	}
+	else
+		printf("Error in swap: Stack contains fewer than 2 elements.\n");
+}
 
 /*#################################################################*/
 // GETCH & UNGETCH
