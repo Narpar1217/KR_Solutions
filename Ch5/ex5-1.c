@@ -18,7 +18,8 @@ int main()
 {
 	int n = 0;
 	
-	printf("ret: %d\nn: %d\n\n", getint(&n), n);
+	printf("Enter int: ");
+	printf("\nret: %d\nn: %d\n\n", getint(&n), n);
 
 	return 0;
 }
@@ -38,7 +39,7 @@ int getint(int *pn)
 	while (isspace(c = getch()))
 		;
 		
-	//Return 0 if c not valid
+	//Return 0 if c not valid first character
 	if (!isdigit(c) && c != EOF && c != '+' && c != '-') {
 		ungetch(c);
 		return 0;
