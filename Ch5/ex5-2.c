@@ -15,7 +15,7 @@ int getfloat(float *pn);
 int getint(int *pn); 
 void ungetch(int);   //See getch.c
 
-/* Runs getint once */
+/* Runs getfloat once */
 int main()
 {
 	float n = 0.0;
