@@ -7,106 +7,86 @@ type does getfloat return as its function value?
  */
 
 #include <stdio.h>
-#include <ctype.h> //isdigit, isspace
-#include <math.h> //pow
+#include <ctype.h>  //isdigit, isspace
+#include <math.h>   //pow
+#include <stdlib.h> //abs
+#include "getch.h"  //getch, ungetch, clearch
 
-int getch(void);     //See getch.c
-int getfloat(float *pn);
-int getint(int *pn); 
-void ungetch(int);   //See getch.c
+int getfloat(float *);
+int getint(int *);
 
-/* Runs getfloat once */
+
+/* Tests getfloat. */
 int main()
 {
 	float n = 0.0;
+	int ret;
 	
-	printf("Enter float: ");
-	printf("\nret: %d\nn: %f\n\n", getfloat(&n), n);
-
+	printf("Send EOF to quit\n");
+	
+	do {
+		printf("\n-------------\n");
+		printf("Enter float: ");
+		ret = getfloat(&n);
+		printf("\nn: %f\nret: %d\n", n, ret);
+		
+		//If buffer not cleared, pushed-back input
+		//will cause infinite loop.
+		clearch();
+		
+	} while (ret != EOF);
+	
+	
 	return 0;
 }
 
+
 /* getfloat:
-	Gets next float from input and places it into *pn.
-	Returns 0 if input not a valid float,
-	otherwise last character encountered 
-	(i.e. character that broke parsing of float; 
-	for example \n, EOF, any non-digit character). 
-	The following are all legal input:
-	x.x, (+|-)x.x, (+|-).x, .x, as is any input legal in getint.
+	Gets float from input and places it into *pn.
+	Returns 0 if input not a valid float, otherwise last character examined.
+
+	The following are legal input:
+		x.x, (+|-)x.x, as is any input legal in getint.
+	
+	*pn is only altered if input valid.
 */
 int getfloat(float *pn)
 {
-	int c, dec, i = 0, sign;
-	
+	int c, dec, sign, i;
+	float f;
+
 	//Skip white space
 	while (isspace(c = getch()))
 		;
-	
-	//Check if negative.
-	//Note this must be done here and not in getint,
-	//as case "-0.x" would fail.
-	if (c == '-') 
-		sign = -1; 
-	else {
-		sign = 1;
-		ungetch(c);
-	}
-	
-	//Place integer portion into i
-	c = getint(&i);
-	
-	//Case: no integer found; could be decimal or sign then decimal.
-	if (c == 0) {
-		c = getch();
 		
-		if (c == '+'|| c == '-') {
-			char posNeg = c;
-			
-			if ((c = getch()) != '.') {
-				ungetch(c);
-				ungetch(posNeg);
-				return 0;
-			}
-		}
-		else if (c != '.') {
-			ungetch(c);
-			return 0;
-		}
-	}
-	else if (c == '.')
-		//decimal will have been pushed back to buffer; get it.
-		c = getch();
-
-	//Case: integer found, decimal portion remaining
-	if (c == '.') {
+	sign = (c == '-') ? -1 : 1;
+	ungetch(c);
 	
+	//Get integer portion from getint
+	if (!(c = getint(&i)))
+		return 0;
+		
+	f = abs(i); //Ignore sign from getint
+		
+	//Check for decimal portion
+	if (c == '.') {
+		c = getch(); //Get decimal pushed back in getint
+		
 		//Verify next character is digit; otherwise invalid
 		if (!isdigit(c = getch())) {
 			ungetch(c);
 			return 0;
 		}
-		else {
-			ungetch(c);
-			*pn = i; //Note *pn not modified until verified as valid
-		}
-	
-		//If *pn negative, flip to positive to prepare for gathering decimal portion
-		if (*pn < 0.0) {
-			sign = -1;
-			*pn = -*pn;
-		}
+		ungetch(c);
 		
-		//Accumulate  post-decimal digits
+		//Accumulate decimal portion
 		for (dec = 0; isdigit(c = getch()); dec++)
-			*pn = 10.0 * *pn + (c - '0');
+			f = 10.0 * f + (c - '0');
 		
-		*pn /= pow(10.0, dec);
+		f /= pow(10.0, dec);
 	}
-	else
-		*pn = i; //Note *pn not modified until verified as valid
 	
-	*pn *= sign;
+	*pn = f * sign; //*pn only altered once input verified to be valid
 	
 	if (c != EOF)
 		ungetch(c);
@@ -121,6 +101,7 @@ int getfloat(float *pn)
 	otherwise last character encountered 
 	(i.e. character that broke parsing of integer; 
 	for example \n, EOF, any non-digit character). 
+
 */
 int getint(int *pn)
 {
@@ -130,7 +111,7 @@ int getint(int *pn)
 	while (isspace(c = getch()))
 		;
 		
-	//Return 0 if c not valid
+	//Return 0 if c not valid first character
 	if (!isdigit(c) && c != EOF && c != '+' && c != '-') {
 		ungetch(c);
 		return 0;

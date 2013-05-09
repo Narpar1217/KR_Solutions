@@ -8,18 +8,29 @@ representation of zero. Fix it to push such a character back on the input.
 
 #include <stdio.h>
 #include <ctype.h> //For isdigit, isspace
+#include "getch.h" //getch, ungetch, clearch
 
-int getch(void);     //See getch.c
 int getint(int *pn); 
-void ungetch(int);   //See getch.c
 
-/* Runs getint once */
+/* Tests getint */
 int main()
 {
-	int n = 0;
+	int ret, n = 0;
 	
-	printf("Enter int: ");
-	printf("\nret: %d\nn: %d\n\n", getint(&n), n);
+	printf("Send EOF to quit\n");
+	
+	do {
+		printf("\n-------------\n");
+		printf("Enter int: ");
+		ret = getint(&n);
+		printf("\nn: %d\nret: %d\n", n, ret);
+		
+		//If buffer not cleared, bad pushed-back input
+		//will cause infinite loop.
+		clearch();
+		
+	} while (ret != EOF);
+	
 
 	return 0;
 }
@@ -27,9 +38,8 @@ int main()
 /* getint:
 	Gets next integer from input into *pn.
 	Returns 0 if input not a valid integer,
-	otherwise last character encountered 
-	(i.e. character that broke parsing of integer; 
-	for example \n, EOF, any non-digit character). 
+	otherwise last character examined.
+	*pn not altered if input invalid.
 */
 int getint(int *pn)
 {
